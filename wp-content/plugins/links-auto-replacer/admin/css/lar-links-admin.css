@@ -1,0 +1,167 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+@import url(http://fonts.googleapis.com/css?family=Nova+Round);
+ #lar_errors{
+ 	margin: 0 0 0 35px;
+
+ }
+ .lar_clear{
+ 	clear: both;
+ }
+ #lar_errors li{
+ 	list-style: disc;
+ }
+
+ #lar_slug_example{
+	background-color: #A8A8A8;
+	color: #ffffff;
+
+}
+
+/*.cmb-th{
+	padding-top: 12px !important;
+}*/
+
+#lar_about{
+	margin-top: 10px;
+	padding: 5px;
+}
+
+
+
+#_lar_links_internal_url{
+	width:230px;
+	
+}
+
+#lar_about .plugin_img{
+	width: 100%;
+}
+#lar_about a{
+	text-decoration: none;
+}
+#lar_about #details{
+	width: 100%;
+}
+#lar_about #details #plugin_details{
+	float: left;
+
+}
+#lar_about #details #author_details{
+	
+	float: left;
+	margin-right:10px; 
+
+}
+#lar_about #details #author_details, #lar_about #details #plugin_details{
+	width: 48%;
+	padding: 0;
+	
+	
+}
+#lar_support{
+	width: 48%;
+
+}
+#lar_support p{
+	font-size: 12pt;
+}
+#lar_about #details #author_details img.wes{
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		width: 30%;
+		float:left;
+}
+#lar_about #details #author_details ul{
+	display: inline;
+	float:left;
+	margin-left: 10px;
+	font-size: 14pt;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+#lar_about #details #author_details ul li{
+	margin-top: 10px;
+}
+
+
+
+/****/
+#lar_about #details #plugin_details img.wes{
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		width: 30%;
+		float:left;
+}
+#lar_about #details #plugin_details ul{
+	display: inline;
+	margin-left: 10px;
+	font-size: 14pt;
+	margin-top: 0;
+	margin-bottom: 0;
+	float:left;
+}
+#lar_about #details #plugin_details ul li{
+	margin-top: 10px;
+}
+/**
+Upgrade
+**/
+
+#lar_upgrade_box{
+	margin-left: 2%;
+	width: 38%;
+	height: auto;
+	background: #FFFFFF;
+	margin-top: 20px;
+	padding: 3px 3px 1px 3px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	line-height: 25px;
+		
+
+}
+#lar_upgrade_box ul{
+	margin: 0 auto;
+
+}
+#lar_upgrade_box ul li{
+	width:90%;
+	font-size: 18pt;
+	font-style: italic;
+	height: auto;
+	list-style:none;
+  	background-repeat:no-repeat;
+  	background-image: url('../images/pro.png');
+	padding: 0.15em 0 0.5em 1.5em;
+  	margin-bottom: 20px;
+  	font-family: 'Nova Round', cursive;
+
+}
+
+#lar_upgrade_box button{
+	font-size: 18pt;
+	padding: 10px;
+	background: rgb(72, 189, 72);
+	margin-left: 30%;
+	height: 50px;
+	margin-top: 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	font-family: 'Nova Round', cursive;
+	color: #ffffff;
+}
+#lar_upgrade_box a {
+	text-decoration: none;
+	color:#ffffff;
+
+}
+#lar_upgrade_box a button  span{
+	font-size: 10pt;
+}

@@ -1,0 +1,654 @@
+# Copyright (C) 2015 Links Auto Replacer
+# This file is distributed under the same license as the Links Auto Replacer package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Links Auto Replacer 2.0.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/Links-Auto-"
+"Replacer-Lite\n"
+"POT-Creation-Date: 2015-05-22 22:33:55+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: admin/class-lar-admin.php:123
+msgctxt "post type general name"
+msgid "Auto Links"
+msgstr ""
+
+#: admin/class-lar-admin.php:124
+msgctxt "post type singular name"
+msgid "Auto Link"
+msgstr ""
+
+#: admin/class-lar-admin.php:125
+msgctxt "admin menu"
+msgid "Auto Links"
+msgstr ""
+
+#: admin/class-lar-admin.php:126
+msgctxt "add new on admin bar"
+msgid "Auto Link"
+msgstr ""
+
+#: admin/class-lar-admin.php:127
+msgctxt "book"
+msgid "Add New Auto Link"
+msgstr ""
+
+#: admin/class-lar-admin.php:128
+msgid "Add New Auto Link"
+msgstr ""
+
+#: admin/class-lar-admin.php:129
+msgid "New Auto Link"
+msgstr ""
+
+#: admin/class-lar-admin.php:130
+msgid "Edit Auto Link"
+msgstr ""
+
+#: admin/class-lar-admin.php:131
+msgid "View Auto Link"
+msgstr ""
+
+#: admin/class-lar-admin.php:132
+msgid "All Auto Links"
+msgstr ""
+
+#: admin/class-lar-admin.php:133
+msgid "Search Auto Links"
+msgstr ""
+
+#: admin/class-lar-admin.php:134
+msgid "Parent Auto Links:"
+msgstr ""
+
+#: admin/class-lar-admin.php:135
+msgid "No links found."
+msgstr ""
+
+#: admin/class-lar-admin.php:136
+msgid "No links found in Trash."
+msgstr ""
+
+#: admin/class-lar-admin.php:173
+msgid "Add new Link"
+msgstr ""
+
+#: admin/class-lar-admin.php:184 admin/class-lar-admin.php:466
+msgid "Keyword/s"
+msgstr ""
+
+#: admin/class-lar-admin.php:198
+msgid "URL (Link)"
+msgstr ""
+
+#: admin/class-lar-admin.php:208 admin/classes/class-settings.php:187
+msgid "Dofollow?"
+msgstr ""
+
+#: admin/class-lar-admin.php:212 admin/classes/class-settings.php:190
+msgid ""
+"if you checked this option, you will allow search engines to follow this "
+"link and use it in ranking."
+msgstr ""
+
+#: admin/class-lar-admin.php:216 admin/classes/class-settings.php:194
+msgid "Open in:"
+msgstr ""
+
+#: admin/class-lar-admin.php:221 admin/classes/class-settings.php:199
+msgid "Same Window"
+msgstr ""
+
+#: admin/class-lar-admin.php:222 admin/classes/class-settings.php:200
+msgid "New Window"
+msgstr ""
+
+#: admin/class-lar-admin.php:224
+msgid ""
+"When the visitor click on the link, it's either open in a new window or the "
+"same window."
+msgstr ""
+
+#: admin/class-lar-admin.php:229 admin/classes/class-settings.php:207
+msgid "Shrink?"
+msgstr ""
+
+#: admin/class-lar-admin.php:233 admin/classes/class-settings.php:210
+msgid "The link will be shortened (e.g example.com/go/amazon)"
+msgstr ""
+
+#: admin/class-lar-admin.php:240
+msgid "Slug"
+msgstr ""
+
+#: admin/class-lar-admin.php:244
+msgid "The slug for the shortened link"
+msgstr ""
+
+#: admin/class-lar-admin.php:250 admin/classes/class-settings.php:216
+msgid "Case Sensitive?"
+msgstr ""
+
+#: admin/class-lar-admin.php:255 admin/classes/class-settings.php:220
+msgid ""
+"If you checked this option, the plugin will replace the keywords exactly "
+"according to the letters case."
+msgstr ""
+
+#: admin/class-lar-admin.php:276
+msgid "Please provide keyword/s"
+msgstr ""
+
+#: admin/class-lar-admin.php:281
+msgid "Please provide a valid url"
+msgstr ""
+
+#: admin/class-lar-admin.php:302
+msgid "URL is already exist"
+msgstr ""
+
+#: admin/class-lar-admin.php:309
+msgid "Slug (%s) is already exist"
+msgstr ""
+
+#: admin/class-lar-admin.php:416
+msgid "Disable"
+msgstr ""
+
+#: admin/class-lar-admin.php:467
+msgid "Link"
+msgstr ""
+
+#: admin/class-lar-admin.php:468
+msgid "Total Clicks"
+msgstr ""
+
+#: admin/class-lar-admin.php:507
+msgid "Stats (PRO)"
+msgstr ""
+
+#: admin/classes/class-settings.php:21
+msgid "Upgrade"
+msgstr ""
+
+#: admin/classes/class-settings.php:27
+msgid "About"
+msgstr ""
+
+#: admin/classes/class-settings.php:172
+msgid "Enable Auto Replcement"
+msgstr ""
+
+#: admin/classes/class-settings.php:180
+msgid "<h2>\"Add Auto Link\" Defaults</h2>"
+msgstr ""
+
+#: admin/cmb/example-functions.php:67
+msgid "Test Metabox"
+msgstr ""
+
+#: admin/cmb/example-functions.php:77 admin/cmb/example-functions.php:363
+msgid "Test Text"
+msgstr ""
+
+#: admin/cmb/example-functions.php:78 admin/cmb/example-functions.php:90
+#: admin/cmb/example-functions.php:98 admin/cmb/example-functions.php:106
+#: admin/cmb/example-functions.php:115 admin/cmb/example-functions.php:123
+#: admin/cmb/example-functions.php:137 admin/cmb/example-functions.php:144
+#: admin/cmb/example-functions.php:152 admin/cmb/example-functions.php:169
+#: admin/cmb/example-functions.php:178 admin/cmb/example-functions.php:186
+#: admin/cmb/example-functions.php:193 admin/cmb/example-functions.php:200
+#: admin/cmb/example-functions.php:214 admin/cmb/example-functions.php:227
+#: admin/cmb/example-functions.php:240 admin/cmb/example-functions.php:252
+#: admin/cmb/example-functions.php:261 admin/cmb/example-functions.php:269
+#: admin/cmb/example-functions.php:278 admin/cmb/example-functions.php:285
+#: admin/cmb/example-functions.php:298 admin/cmb/example-functions.php:364
+#: admin/cmb/example-functions.php:458 admin/cmb/example-functions.php:466
+#: admin/cmb/example-functions.php:473 admin/cmb/example-functions.php:480
+#: admin/cmb/example-functions.php:487 admin/cmb/example-functions.php:494
+#: admin/cmb/example-functions.php:501 admin/cmb/example-functions.php:539
+msgid "field description (optional)"
+msgstr ""
+
+#: admin/cmb/example-functions.php:89
+msgid "Test Text Small"
+msgstr ""
+
+#: admin/cmb/example-functions.php:97
+msgid "Test Text Medium"
+msgstr ""
+
+#: admin/cmb/example-functions.php:105
+msgid "Website URL"
+msgstr ""
+
+#: admin/cmb/example-functions.php:114
+msgid "Test Text Email"
+msgstr ""
+
+#: admin/cmb/example-functions.php:122
+msgid "Test Time"
+msgstr ""
+
+#: admin/cmb/example-functions.php:129 admin/cmb/example-functions.php:130
+msgid "Time zone"
+msgstr ""
+
+#: admin/cmb/example-functions.php:136
+msgid "Test Date Picker"
+msgstr ""
+
+#: admin/cmb/example-functions.php:143
+msgid "Test Date Picker (UNIX timestamp)"
+msgstr ""
+
+#: admin/cmb/example-functions.php:151
+msgid "Test Date/Time Picker Combo (UNIX timestamp)"
+msgstr ""
+
+#: admin/cmb/example-functions.php:168
+msgid "Test Money"
+msgstr ""
+
+#: admin/cmb/example-functions.php:177
+msgid "Test Color Picker"
+msgstr ""
+
+#: admin/cmb/example-functions.php:185
+msgid "Test Text Area"
+msgstr ""
+
+#: admin/cmb/example-functions.php:192
+msgid "Test Text Area Small"
+msgstr ""
+
+#: admin/cmb/example-functions.php:199
+msgid "Test Text Area for Code"
+msgstr ""
+
+#: admin/cmb/example-functions.php:206
+msgid "Test Title Weeeee"
+msgstr ""
+
+#: admin/cmb/example-functions.php:207
+msgid "This is a title description"
+msgstr ""
+
+#: admin/cmb/example-functions.php:213
+msgid "Test Select"
+msgstr ""
+
+#: admin/cmb/example-functions.php:219 admin/cmb/example-functions.php:232
+#: admin/cmb/example-functions.php:244
+msgid "Option One"
+msgstr ""
+
+#: admin/cmb/example-functions.php:220 admin/cmb/example-functions.php:233
+#: admin/cmb/example-functions.php:245
+msgid "Option Two"
+msgstr ""
+
+#: admin/cmb/example-functions.php:221 admin/cmb/example-functions.php:234
+#: admin/cmb/example-functions.php:246
+msgid "Option Three"
+msgstr ""
+
+#: admin/cmb/example-functions.php:226
+msgid "Test Radio inline"
+msgstr ""
+
+#: admin/cmb/example-functions.php:239
+msgid "Test Radio"
+msgstr ""
+
+#: admin/cmb/example-functions.php:251
+msgid "Test Taxonomy Radio"
+msgstr ""
+
+#: admin/cmb/example-functions.php:260
+msgid "Test Taxonomy Select"
+msgstr ""
+
+#: admin/cmb/example-functions.php:268
+msgid "Test Taxonomy Multi Checkbox"
+msgstr ""
+
+#: admin/cmb/example-functions.php:277
+msgid "Test Checkbox"
+msgstr ""
+
+#: admin/cmb/example-functions.php:284
+msgid "Test Multi Checkbox"
+msgstr ""
+
+#: admin/cmb/example-functions.php:289
+msgid "Check One"
+msgstr ""
+
+#: admin/cmb/example-functions.php:290
+msgid "Check Two"
+msgstr ""
+
+#: admin/cmb/example-functions.php:291
+msgid "Check Three"
+msgstr ""
+
+#: admin/cmb/example-functions.php:297
+msgid "Test wysiwyg"
+msgstr ""
+
+#: admin/cmb/example-functions.php:305
+msgid "Test Image"
+msgstr ""
+
+#: admin/cmb/example-functions.php:306
+msgid "Upload an image or enter a URL."
+msgstr ""
+
+#: admin/cmb/example-functions.php:312
+msgid "Multiple Files"
+msgstr ""
+
+#: admin/cmb/example-functions.php:313
+msgid "Upload or add multiple images/attachments."
+msgstr ""
+
+#: admin/cmb/example-functions.php:320
+msgid "oEmbed"
+msgstr ""
+
+#: admin/cmb/example-functions.php:321
+msgid ""
+"Enter a youtube, twitter, or instagram URL. Supports services listed at <a "
+"href=\"http://codex.wordpress.org/Embeds\">http://codex.wordpress.org/"
+"Embeds</a>."
+msgstr ""
+
+#: admin/cmb/example-functions.php:354
+msgid "About Page Metabox"
+msgstr ""
+
+#: admin/cmb/example-functions.php:385
+msgid "Repeating Field Group"
+msgstr ""
+
+#: admin/cmb/example-functions.php:393
+msgid "Generates reusable form entries"
+msgstr ""
+
+#: admin/cmb/example-functions.php:395
+msgid "Entry {#}"
+msgstr ""
+
+#: admin/cmb/example-functions.php:396
+msgid "Add Another Entry"
+msgstr ""
+
+#: admin/cmb/example-functions.php:397
+msgid "Remove Entry"
+msgstr ""
+
+#: admin/cmb/example-functions.php:409
+msgid "Entry Title"
+msgstr ""
+
+#: admin/cmb/example-functions.php:416
+msgid "Description"
+msgstr ""
+
+#: admin/cmb/example-functions.php:417
+msgid "Write a short description for this entry"
+msgstr ""
+
+#: admin/cmb/example-functions.php:423
+msgid "Entry Image"
+msgstr ""
+
+#: admin/cmb/example-functions.php:429
+msgid "Image Caption"
+msgstr ""
+
+#: admin/cmb/example-functions.php:450
+msgid "User Profile Metabox"
+msgstr ""
+
+#: admin/cmb/example-functions.php:457
+msgid "Extra Info"
+msgstr ""
+
+#: admin/cmb/example-functions.php:465
+msgid "Avatar"
+msgstr ""
+
+#: admin/cmb/example-functions.php:472
+msgid "Facebook URL"
+msgstr ""
+
+#: admin/cmb/example-functions.php:479
+msgid "Twitter URL"
+msgstr ""
+
+#: admin/cmb/example-functions.php:486
+msgid "Google+ URL"
+msgstr ""
+
+#: admin/cmb/example-functions.php:493
+msgid "Linkedin URL"
+msgstr ""
+
+#: admin/cmb/example-functions.php:500
+msgid "User Field"
+msgstr ""
+
+#: admin/cmb/example-functions.php:523
+msgid "Theme Options Metabox"
+msgstr ""
+
+#: admin/cmb/example-functions.php:538
+msgid "Site Background Color"
+msgstr ""
+
+#: admin/cmb/includes/CMB2.php:112
+msgid "Metabox configuration is required to have an ID parameter"
+msgstr ""
+
+#: admin/cmb/includes/CMB2.php:302
+msgid "Click to toggle"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Ajax.php:37
+msgid "Please Try Again"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Ajax.php:133
+msgid "Remove Embed"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Ajax.php:137
+msgid "No oEmbed Results Found for %s. View more info at"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Field.php:885
+msgid "Add Group"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Field.php:886
+msgid "Remove Group"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Field.php:908 admin/cmb/includes/CMB2_Field.php:912
+msgid "None"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Types.php:294
+msgid "Add Row"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Types.php:353 admin/cmb/includes/CMB2_Types.php:986
+#: admin/cmb/includes/CMB2_hookup.php:183
+msgid "Remove"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Types.php:722 admin/cmb/includes/CMB2_Types.php:770
+msgid "No terms"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Types.php:835
+msgid "Add or Upload Files"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Types.php:893
+msgid "Add or Upload File"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Types.php:967
+#: admin/cmb/includes/CMB2_hookup.php:182
+msgid "Remove Image"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Types.php:981
+#: admin/cmb/includes/CMB2_hookup.php:184
+msgid "File:"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_Types.php:984
+#: admin/cmb/includes/CMB2_hookup.php:185
+msgid "Download"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:128
+#: admin/cmb/includes/CMB2_hookup.php:165
+msgid "Clear"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:129
+msgid "Default"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:130
+msgid "Select Color"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:131
+msgid "Current Color"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:155
+msgid "mm/dd/yy"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:156
+msgid "Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:157
+msgid "Su, Mo, Tu, We, Th, Fr, Sa"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:158
+msgid "Sun, Mon, Tue, Wed, Thu, Fri, Sat"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:159
+msgid ""
+"January, February, March, April, May, June, July, August, September, "
+"October, November, December"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:160
+msgid "Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:161
+msgid "Next"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:162
+msgid "Prev"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:163
+msgid "Today"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:164
+#: admin/cmb/includes/CMB2_hookup.php:174
+msgid "Done"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:168
+msgid "Choose Time"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:169
+msgid "Time"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:170
+msgid "Hour"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:171
+msgid "Minute"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:172
+msgid "Second"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:173
+msgid "Now"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:175
+msgid "hh:mm TT"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:181
+msgid "Use this file"
+msgstr ""
+
+#: admin/cmb/includes/CMB2_hookup.php:186
+msgid "Select / Deselect All"
+msgstr ""
+
+#: admin/cmb/includes/helper-functions.php:254
+msgid "Save"
+msgstr ""
+
+#: admin/partials/about.php:36
+msgid "Version"
+msgstr ""
+
+#: admin/partials/menu.php:2
+msgid "Settings"
+msgstr ""
+
+#: admin/partials/upgrade.php:16
+msgid "Upgrade to PRO"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Links Auto Replacer"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://waseem-senjer.com/product/links-auto-replacer-pro/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Auto replace your affiliate links and track them."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Waseem Senjer"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://waseem-senjer.com/product/links-auto-replacer-pro//"
+msgstr ""
