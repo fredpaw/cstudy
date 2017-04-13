@@ -11,3 +11,112 @@
  Tags:         
  Text Domain:  csa-cstudy
 */
+
+/**
+ * General Layout for Cstudy
+ */
+.html_header_top.html_header_sticky #top #wrap_all #main {
+	padding-top: 130px !important;
+}
+
+/**
+ *  Header Style
+ */
+
+#header_meta .container {
+	height: 50px;
+}
+
+#header_meta .container .sub_menu {
+	top:15px;
+	font-size:12px;
+	height:20px;
+}
+
+#header_meta .container .sub_menu ul li{
+	line-height:20px;
+}
+
+#header_meta .sub_menu>ul>li>a {
+	font-weight:normal;
+}
+
+#header_meta .phone-info {
+	padding:10px 0;
+	line-height:30px;
+}
+
+@media screen and (max-width:767px) {
+	#header_meta .phone-info {
+		display:none;
+	}
+
+	#header_meta .container .sub_menu {
+		position:relative;
+		top:10px;
+		font-size:12px;
+	}
+}
+
+#header_main .logo a img {
+	display:block;
+	vertical-align: middle;
+}
+
+/**
+ *  Main Menu Style
+ */
+.av-main-nav > li > a{
+	font-weight:normal;
+	font-size:14px;
+}
+
+.av-main-nav .sub_menu > li > a{
+	color:#ffffff;
+}
+
+
+/**
+ * 	Footer Style
+ */
+#footer .container {
+	padding: 0px;
+}
+
+#footer_content {
+	max-width:1200px;
+	margin:auto;
+}
+
+#footer_content .special-heading-border {
+	display: block;
+	margin-right:60px;
+	color: #ffffff;
+}
+
+#footer_content .special-heading-inner-border {
+	margin-left: 0px;
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+
+#footer_content .avia-button span {
+	font-size:18px;
+}
+
+#socket .copyright {
+	font-size:14px;
+}
+
+/**
+ *  Homepage Style
+ */
+#cstudy_intro {
+	max-width: 1200px;
+	margin:auto;
+}
+
+#ranking_strategy .flex_cell_inner {
+	max-width:1200px;
+	margin:auto;
+}

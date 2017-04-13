@@ -1,17 +1,17 @@
 <?php
 /*
 Plugin Name: All In One SEO Pack
-Plugin URI: https://semperfiwebdesign.com
-Description: Out-of-the-box SEO for your WordPress blog. Features like XML Sitemaps, SEO for custom post types, SEO for blogs or business sites, SEO for ecommerce sites, and much more. Almost 30 million downloads since 2007.
-Version: 2.3.12.1
+Plugin URI: https://semperplugins.com/all-in-one-seo-pack-pro-version/
+Description: Out-of-the-box SEO for your WordPress blog. Features like XML Sitemaps, SEO for custom post types, SEO for blogs or business sites, SEO for ecommerce sites, and much more. More than 30 million downloads since 2007.
+Version: 2.3.12.2.1
 Author: Michael Torbert
-Author URI: https://michaeltorbert.com
+Author URI: https://semperplugins.com/all-in-one-seo-pack-pro-version/
 Text Domain: all-in-one-seo-pack
 Domain Path: /i18n/
 */
 
 /*
-Copyright (C) 2007-2016 Michael Torbert, https://semperfiwebdesign.com
+Copyright (C) 2007-2017 Michael Torbert, https://semperfiwebdesign.com
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,14 +31,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * The original WordPress SEO plugin.
  *
  * @package All-in-One-SEO-Pack
- * @version 2.3.12.1
+ * @version 2.3.12.2.1
  */
 
 if ( ! defined( 'AIOSEOPPRO' ) ) {
 	define( 'AIOSEOPPRO', false );
 }
 if ( ! defined( 'AIOSEOP_VERSION' ) ) {
-	define( 'AIOSEOP_VERSION', '2.3.12.1' );
+	define( 'AIOSEOP_VERSION', '2.3.12.2.1' );
 }
 global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
