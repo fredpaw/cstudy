@@ -4,6 +4,7 @@
     border: 1px solid #faebcc;
     padding:5px;
     font-style: italic;
+    margin: 0.5em 0 1em 0;
 }
 .ilgen-notification h5{
     font-style: normal;
@@ -39,8 +40,10 @@
 .ilgen .settings-inner{
     max-width: 300px;
 }
-.ilgen .settings-inner input[type="text"]{
-    margin: 1em 0;
+.ilgen .settings-inner input[type="text"],
+.ilgen .settings-inner input[type="password"]{
+    margin-bottom: 0.5em;
+    width: 100%;
 }
 .ilgen .container{
     background: #fff;
@@ -139,6 +142,7 @@
     padding: 7px 10px;
     background: #e4e4e4;
     text-transform: inherit;
+    position: relative;
 }
 .ilgen .box > h4 > span{
     width:22px;
@@ -165,9 +169,15 @@
 .ilgen .box > h4 > span.plus{
     background-image: url('../images/plus.png');
 }
+.ilgen .box > h4 > i{
+    position: absolute;
+    right: 60px;
+    margin: 0;
+}
 .ilgen .box .box-inner { 
-   display:none;
-   padding:10px;
+   display: none;
+   padding: 10px;
+   overflow: hidden;
 }
 .ilgen .grabb-inner,
 .ilgen .keywords-inner{
@@ -254,7 +264,7 @@
     float: right;
 }
 .ilgen-donate img{
-    width: 180px;
+    width: 120px;
     height: auto;
     -webkit-transition-property: transform;
     transition-property: transform;
@@ -269,7 +279,42 @@
 	text-align: center;
 }
 #ilgenArrowTo{
-	font-size: 18px;
-	font-weight: bold;
-	padding: 0 8px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0 8px;
+}
+
+#box_external_links table tbody tr td{
+    text-align: center;
+}
+#box_external_links table tbody tr td:first-child{
+    text-align: left;
+}
+
+.ilgen-edit-post{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    vertical-align: baseline;
+    background: url('../images/edit.png') no-repeat center;
+    background-size: 100%;
+    margin:0 5px;
+}
+
+.container.stat .tablenav > div{
+    padding: 0 20px;
+}
+.container.stat .tablenav span{
+    font-weight: 600;
+    line-height: 30px;
+}
+
+#lettersNavigation{
+    padding: 3px 0;
+}
+#lettersNavigation button{
+    display: inline-block;
+    text-transform: uppercase;
+    min-width: 30px;
+    margin-right: 2px;
 }

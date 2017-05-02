@@ -1,25 +1,3 @@
-<script>
-    jQuery(document).ready(function($){
-        $('.ilgen-keywords-del').click(function(e){
-            e.preventDefault();
-            obj = $(this);
-            jQuery.ajax({
-                url : '<?php menu_page_url('internal_links_generator');?>',
-                type : 'post',
-                data : {
-                    action   : 'ajax',
-                    _wpnonce : '<?php echo wp_create_nonce('internal_link_generator-ajax');?>',
-                    type     : 'keywords_del',
-                    id       : obj.attr('data-id')
-                },
-                success : function( response ) {
-                    obj.attr('disabled', true);
-                    obj.closest('tr').css('display','none');
-                }
-            });
-        });
-    });
-</script>
 <div class="container keywords">
     <h4><?php _e('Keywords list', 'ilgen')?></h4>
     <?php if(!empty($template_data['keywords'])):?>
@@ -39,6 +17,10 @@
                     <input type="submit" class="button button-primary" name="ilgen_bulk" value="<?php _e('Apply', 'ilgen')?>">
                     <span class="ilgen-watch-notification"><?php _e('Click "Apply" to save changes!')?></span>
                 </div>
+                <div class="alignright actions">
+                    <input type="search" id="ilgenSearchInput" value="<?= $_GET['filter']?>">
+                    <input type="button" class="button" value="<?php _e('Filter')?>" onclick="insertParam('filter', document.getElementById('ilgenSearchInput').value); return false;">
+                </div>
             </div>
             <div class="keywords-inner">
                 <table>
@@ -53,7 +35,8 @@
                         <th><?php _e('Delete', 'ilgen')?></th>
                     </tr></thead>
                     <tbody>
-                        <?php foreach($template_data['keywords'] as $key):?>
+                        <?php foreach($template_data['keywords'] as $key):
+                            if($_GET['filter'] && !stristr($key->keyword, $_GET['filter'])) continue;?>
                             <tr>
                                 <td><input type="checkbox" name="ids[]" value="<?= $key->id?>"></td>
                                 <td><?= html_entity_decode($key->keyword)?></td>
@@ -97,4 +80,26 @@
     <?php else:?>
         <p class="ilgen-notification"><?php printf('In order to add keywords, use %s tab.', '<a href="options-general.php?page=internal_links_generator&tab=impex">' . __('Import/Export', 'ilgen') . '</a>');?></p>
     <?php endif;?>
+    <script>
+        jQuery(document).ready(function($){
+            $('.ilgen-keywords-del').click(function(e){
+                e.preventDefault();
+                obj = $(this);
+                jQuery.ajax({
+                    url : '<?php menu_page_url('internal_links_generator');?>',
+                    type : 'post',
+                    data : {
+                        action   : 'ajax',
+                        _wpnonce : '<?php echo wp_create_nonce('internal_link_generator-ajax');?>',
+                        type     : 'keywords_del',
+                        id       : obj.attr('data-id')
+                    },
+                    success : function( response ) {
+                        obj.attr('disabled', true);
+                        obj.closest('tr').css('display','none');
+                    }
+                });
+            });
+        });
+    </script>
 </div>

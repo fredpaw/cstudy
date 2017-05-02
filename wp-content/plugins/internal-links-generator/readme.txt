@@ -1,11 +1,11 @@
-=== Internal Links Generator ===
+﻿=== Internal Links Generator ===
 
 Contributors: makong
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GM7YSW282RC4L
+Donate link: https://www.paypal.me/MaxKondrachuk
 Tags: SEO, keywords, link, internal links, custom
 Requires at least: 1.0
 Tested up to: 3.4
-Stable tag: 4.4
+Stable tag: 4.7
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,3 +91,10 @@ That means that you can create a lot more variations of your anchor texts (remem
 = 2.6 =
 * Added a feature of editing existed target urls.
 * Fixed problem of database migration to version 2.5 or higher (Reactivate plugin for the changes to take effect).
+
+= 2.7 =
+*
+*
+*
+*
+*

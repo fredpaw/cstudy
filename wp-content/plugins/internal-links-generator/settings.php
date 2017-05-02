@@ -12,10 +12,13 @@ if(!class_exists('Internal_Links_Generator_Settings')){
                 'grab'     => __('Grab Links','ilgen'),
                 'impex'    => __('Import/Export','ilgen'),
                 'asearch'  => __('Search Anchors','ilgen'),
+                'stat'     => __('Statistics', 'ilgen'),
                 'settings' => __('Settings','ilgen')
             );
             $this->tab = (isset( $_GET['tab'] )) ? $_GET['tab'] : key($this->settings_tabs);
             $this->options = get_option('ilgen_options');
+            $this->urlPattern = "<a\s[^>]*href=(\"??)([^\">]*?)\\1[^>]*>(.*)<\/a>";
+            
             // register actions
             add_action('admin_init', array(&$this, 'init'));
             add_action('admin_menu', array(&$this, 'menu'));
@@ -72,20 +75,10 @@ if(!class_exists('Internal_Links_Generator_Settings')){
             switch($this->tab){
                 case 'keywords':
                     $template_data['keywords'] = $this->wpdb->get_results(
-                        "SELECT * FROM `".$this->wpdb->prefix."internalinks` ORDER BY keyword ASC"
+                        "SELECT * FROM `{$this->wpdb->prefix}internalinks` ORDER BY `keyword` ASC"
                     );
                 break;
-                case 'links':
-                    $template_data['targets'] = $this->ilgen_get_targets();
-                break;
-                case 'grab':
-                    $template_data['grabbs'] = $this->ilgen_grabb_links();
-                break;
-                case 'asearch':
-                    $template_data['asearch'] = $this->asearch();
-                break;
             }
-            
             $this->ilgen_get_page($template_data);
         }
         
@@ -127,21 +120,29 @@ if(!class_exists('Internal_Links_Generator_Settings')){
         }
         
         public function export(){
-            $string = '';
-            $file_url = sprintf("%s/keywords.txt", dirname(__FILE__));
+            
+            $file_url = sprintf("%s/keywords.csv", dirname(__FILE__));
+            $fp = fopen($file_url, 'w');
             $rows = $this->wpdb->get_results(
-                "SELECT * FROM `".$this->wpdb->prefix."internalinks`"
+                "SELECT * FROM `{$this->wpdb->prefix}internalinks`"
             );
+            
             if(!empty($rows)){
-                $string .= __('Keyword', 'ligen') . "\t" . __('Target URL', 'ligen') . "\t" . __('Limit', 'ligen') . "\n";
+                fputcsv($fp, array( 
+                    __('Keyword', 'ligen'),  __('Target URL', 'ligen'),
+                    __('Limit', 'ligen'),  __('Found on Site', 'ligen'), 
+                    __('Linked', 'ilgen')
+                ));
                 foreach($rows as $row){
-                    $string .= html_entity_decode($row->keyword) . "\t" . $row->target . "\t" . $row->limit . "\n";
+                    fputcsv($fp, array( html_entity_decode($row->keyword), 
+                        $row->target, $row->limit, $row->count, $row->linked
+                    ));
                 }
             }
-            if($this->ilgen_is_writable($file_url) && '' != $string) {
-                if(file_put_contents($file_url, $string)) {
-                    $this->ilgen_messages(6, 'updated');
-                }
+            fclose($fp);
+            
+            if($this->ilgen_is_writable($file_url)) {
+                $this->ilgen_messages(6, 'updated');
             }
         }
         
@@ -186,9 +187,9 @@ if(!class_exists('Internal_Links_Generator_Settings')){
         }
         
         public function linking($id){
-            $row = $this->wpdb->get_row( 
-                sprintf("SELECT * FROM `".$this->wpdb->prefix."internalinks` WHERE id = '%d' LIMIT 1", $id)
-            );
+            $row = $this->wpdb->get_row($this->wpdb->prepare( 
+                "SELECT * FROM `{$this->wpdb->prefix}internalinks` WHERE `id` = '%d' LIMIT 1", $id
+            ));
             $linked_posts = (array)unserialize($row->posts);
             $keyword      = html_entity_decode($row->keyword);
             $linked_limit = $row->limit;
@@ -204,7 +205,9 @@ if(!class_exists('Internal_Links_Generator_Settings')){
                                                
                 foreach(get_post_types(array('public' => true), 'names') as $post_type){
                     if(empty($this->options['allowed_pt']) || in_array($post_type, $this->options['allowed_pt'])){
-                        $posts = $this->wpdb->get_results( "SELECT ID, post_content FROM `".$this->wpdb->prefix."posts` WHERE post_type = '$post_type' AND post_status = 'publish'" );
+                        $posts = $this->wpdb->get_results( $this->wpdb->prepare( 
+                            "SELECT `ID`, `post_content` FROM `{$this->wpdb->prefix}posts` WHERE `post_type` = '%s'", $post_type
+                        ));
                         if(!empty($posts)){
                             foreach($posts as $p){
                                 $this->ilgen_numlinks($p->post_content);
@@ -219,27 +222,19 @@ if(!class_exists('Internal_Links_Generator_Settings')){
                                     @preg_match($url_regex, $p->post_content, $match);
                                     if(empty($match)){
                                         $content = preg_replace($search_regex, '<a href="'.$target.'" class="ilgen">'.$tag_open.'$0'.$tag_close.'</a>', $p->post_content, 1, $count);
-                                        if($count > 0){
-                                            if($this->wpdb->query($this->wpdb->prepare(
-                                            "UPDATE `".$this->wpdb->prefix."posts` SET post_content = '%s' WHERE ID = '%d' AND post_status = 'publish'", 
-                                            $content, $p->ID))){
-                                                $qty += $count;
-                                                $linked_posts[] = $p->ID;
-                                            }
-                                            unset($count, $content); 
+                                        if($count && wp_update_post(array('ID' => $p->ID, 'post_content' => $content))){ 
+                                            $qty += $count; $linked_posts[] = $p->ID;
                                         }
                                     }
-                                    else continue;
                                 }
-                                else continue;
                             }
                         }
                     }
                 }
             }
 
-            $result = $this->wpdb->query($this->wpdb->prepare(
-                "UPDATE `".$this->wpdb->prefix."internalinks` SET `linked` = '%d', `posts` = '%s' WHERE id = '%d'",
+            $result = $this->wpdb->query( $this->wpdb->prepare(
+                "UPDATE `{$this->wpdb->prefix}internalinks` SET `linked` = '%d', `posts` = '%s' WHERE `id` = %d",
                 $qty, serialize($linked_posts), $id
             ));
             
@@ -247,53 +242,48 @@ if(!class_exists('Internal_Links_Generator_Settings')){
         }
                 
         public function unlinking($id){
-            $row = $this->wpdb->get_row( 
-                sprintf("SELECT * FROM `".$this->wpdb->prefix."internalinks` WHERE id = '%d' LIMIT 1", $id)
-            );
+            
+            $row = $this->wpdb->get_row( $this->wpdb->prepare( 
+                "SELECT * FROM `{$this->wpdb->prefix}internalinks` WHERE `id` = '%d' LIMIT 1", $id
+            ));
             $linked_posts = (array)unserialize($row->posts);
             $keyword      = html_entity_decode($row->keyword);
             $target       = $row->target;
             $qty          = $row->linked;
             $tag_open     = ($row->tag) ? "<$row->tag>" : '';
             $tag_close    = ($row->tag) ? "<\/$row->tag>" : '';
-            
-            $url_regex = sprintf("/<a href=\"%s\" class=\"ilgen\">$tag_open(.*)$tag_close<\/a>/iu", preg_quote($target, '/'));
-            
+
             if(!empty($linked_posts)){
                 foreach($linked_posts as $k => $pid){
-                    $content = get_post_field('post_content', $pid);
-                    @preg_match($url_regex, $content, $match);
-                    if( mb_convert_case(trim($match[1]), MB_CASE_LOWER, "UTF-8") == $keyword ){
-                        $content = preg_replace($url_regex, "$1", $content, 1, $count);
-                        if($count > 0 ){
-                            if($this->wpdb->query($this->wpdb->prepare("UPDATE `".$this->wpdb->prefix."posts` SET post_content = '%s' WHERE ID = '%d' AND post_status = 'publish'", $content, $pid))){
-                                $qty -= $count;
-                                unset($linked_posts[$k]);
+                    if(!$pid) continue;
+                    $content = get_post_field('post_content', $pid); 
+                    if(preg_match_all("/{$this->urlPattern}/siU", $content, $matches, PREG_SET_ORDER)){
+                        foreach($matches as $match){
+                            if( mb_convert_case(trim($match[3]), MB_CASE_LOWER, "UTF-8") == $keyword  && strpos($match[0], 'class="ilgen"')){
+                                $content = str_replace($match[0], $match[3], $content, $count);
+                                if($count && wp_update_post(array('ID' => $pid, 'post_content' => $content))){
+                                    $qty --; unset($linked_posts[$k]);
+                                }
                             }
-                            unset($count, $content); 
                         }
                     }
                 }
             }
-            $result = $this->wpdb->query($this->wpdb->prepare(
-                "UPDATE `".$this->wpdb->prefix."internalinks` SET `linked` = '%d', `posts` = '%s' WHERE id = '%d'",
-                $qty, serialize($linked_posts), $id
-            ));
             
-            return $result;
+            return $this->wpdb->query($this->wpdb->prepare(
+                "UPDATE `{$this->wpdb->prefix}internalinks` SET `linked` = '%d', `posts` = '%s' WHERE `id` = '%d'",
+                intval($qty), serialize($linked_posts), $id
+            ));
         }
         
         public function grabb(){
-            if(!empty($_POST['ids'])){
-                $data = $this->ilgen_grabb_links();
-                
+            
+            if(!empty($_POST['ids']) && $data = $this->ilgen_grabb_links()){
                 foreach($_POST['ids'] as $gid){
-                    
-                    $target  = esc_url($data[$gid][2]);
+                                       
+                    $target  = trim($data[$gid][2]);
                     $pid     = absint($data[$gid][0]);
-                    $tag     = $data[$gid][1];
-                    $content = get_post_field('post_content', $pid);
-                    
+                                        
                     $check = $this->ilgen_check_exists(
                         $this->ilgen_prepare_keyword($data[$gid][3])
                     );
@@ -303,41 +293,41 @@ if(!class_exists('Internal_Links_Generator_Settings')){
                     }else{
                         $check_id = $check;
                     }
-                    $row = $this->wpdb->get_row(
-                        sprintf("SELECT * FROM `".$this->wpdb->prefix."internalinks` WHERE id = '%d' LIMIT 1", $check_id)
-                    );
-                    
-                    $linked_posts = (array)unserialize($row->posts);
-                    $target  = ('' != $row->target) ? $row->target : $target;
-                    $url_regex = sprintf("/<a href=\"%s\" class=\"ilgen\">(.*)<\/a>/iu", preg_quote($target, '/'));
-                    @preg_match($url_regex, $content, $match);
-                    
-                    if(!in_array($pid, (array)$linked_posts) && empty($match) && '' != $target){
-                        $tag_open     = ($row->tag) ? "<$row->tag>" : '';
-                        $tag_close    = ($row->tag) ? "</$row->tag>" : '';
-            
-                        $content = str_replace( $tag, 
-                            sprintf( '<a href="%s" class="ilgen">%s%s%s</a>', 
-                                $target, $tag_open, $data[$gid][3], $tag_close),
-                        $content );
-                        $linked_posts[] = $pid;
-                        $linked_posts = serialize(array_filter($linked_posts));
-                        
-                        $this->wpdb->query($this->wpdb->prepare("UPDATE `".$this->wpdb->prefix."internalinks` SET ".
-                            "`limit` = '%d', `linked` = '%d', `posts` = '%s' WHERE id = '%d'", 
-                            $row->limit + 1, $row->linked + 1, $linked_posts, $row->id
-                        ));
-                    }
-                    else{
-                        $content = str_replace( $data[$gid][1], $data[$gid][3], $content );
-                    }
-                    $this->wpdb->query($this->wpdb->prepare(
-                        "UPDATE `".$this->wpdb->prefix."posts` SET post_content = '%s' WHERE ID = '%d' AND post_status = 'publish'",
-                        $content, $data[$gid][0]
+                    $row = $this->wpdb->get_row( $this->wpdb->prepare(
+                        "SELECT * FROM `{$this->wpdb->prefix}internalinks` WHERE `id` = '%d' LIMIT 1", $check_id
                     ));
+                                      
+                    if(!$linked_posts = array_filter((array)unserialize($row->posts))){
+                        $linked_posts = array();
+                    }
+                    $target  = ('' != $row->target) ? $row->target : $target;
+                    
+                    $content = get_post_field('post_content', $pid);
+                    if(!in_array($pid, $linked_posts) && $target != get_the_permalink($pid)){ 
+                        $tag_open  = ($row->tag) ? "<$row->tag>" : '';
+                        $tag_close = ($row->tag) ? "</$row->tag>" : '';
+                        $replacer = sprintf(
+                            '<a href="%s" class="ilgen">%s%s%s</a>', 
+                            $target, $tag_open, $data[$gid][3], $tag_close
+                        );
+                        $content = preg_replace('/'.preg_quote($data[$gid][1], '/').'/', $replacer, $content, 1, $count);
+                        if($count){
+                            if($res = wp_update_post(array('ID' => $pid, 'post_content' => $content))){
+                                $linked_posts[] = $res;
+                                $this->wpdb->query( $this->wpdb->prepare(
+                                    "UPDATE `{$this->wpdb->prefix}internalinks` " .
+                                    "SET `limit` = '%d', `linked` = '%d', `posts` = '%s' WHERE `id` = %d", 
+                                    (intval($row->limit) + $count), (intval($row->linked) + $count), serialize($linked_posts), $row->id
+                                ));
+                            }
+                        }
+                    }else{
+                        $content = str_replace($data[$gid][1], $data[$gid][3], $content, $count);
+                        if($count) $res = wp_update_post( array('ID' => $pid, 'post_content' => $content));
+                    }
                 }
-                $this->ilgen_messages(7, 'updated');
             }
+            if($res) $this->ilgen_messages(7, 'updated');
             else $this->ilgen_messages(7, 'warning');
         }
         
@@ -348,7 +338,9 @@ if(!class_exists('Internal_Links_Generator_Settings')){
                 
                 foreach(get_post_types(array('public' => true), 'names') as $post_type){
                     if(empty($this->options['allowed_pt']) || in_array($post_type, $this->options['allowed_pt'])){
-                        $posts = $this->wpdb->get_results( "SELECT ID, post_content FROM `".$this->wpdb->prefix."posts` WHERE post_type = '$post_type' AND post_status = 'publish'" );
+                        $posts = $this->wpdb->get_results($this->wpdb->prepare(
+                            "SELECT `ID`, `post_content` FROM `{$this->wpdb->prefix}posts` WHERE `post_type` = '%s'", $post_type
+                        ));
                         if(!empty($posts)){
                             foreach($posts as $p){
                                 if(@preg_match_all('/(?<!\p{L})'.$keyword.'(?!\p{L})(?!([^<]+)?>)/iu', $p->post_content, $matches)){
@@ -361,8 +353,7 @@ if(!class_exists('Internal_Links_Generator_Settings')){
             }
             if($qty > 0){
                 $result = $this->wpdb->query($this->wpdb->prepare(
-                    "UPDATE `".$this->wpdb->prefix."internalinks` SET `count` = '%d' WHERE id = '%d'",
-                    $qty, $id
+                    "UPDATE `{$this->wpdb->prefix}internalinks` SET `count` = '%d' WHERE `id` = '%d'", $qty, $id
                 ));
             }
             return $qty;
@@ -391,29 +382,29 @@ if(!class_exists('Internal_Links_Generator_Settings')){
             return $data;
         }
         
-		public function targets_edit(){
-			
-			if($_POST['target_old'] && $_POST['target_new']){
-				
-				$new = esc_url($_POST['target_new']);
-				if($data = $this->ilgen_get_targets(array((object)array('target' => $_POST['target_old'])))){
-					foreach($data as $dt){
-						if($dt->keywords){
-							foreach($dt->keywords as $k){
-								$this->unlinking($k->id);
-								$this->ilgen_insert_keyword($k->keyword, $new, $k->limit, $k->tag, $k->id, $k->count);
-								$this->linking($k->id);
-							}
-						}
-					}
-					$this->ilgen_messages(11, 'updated');
-				}else{
-					$this->ilgen_messages(11, 'warning');
-				}
-			}else{
-				$this->ilgen_messages(11, 'warning');
-			}
-		}
+        public function targets_edit(){
+
+        if($_POST['target_old'] && $_POST['target_new']){
+
+                $new = esc_url($_POST['target_new']);
+                if($data = $this->ilgen_get_targets(array((object)array('target' => $_POST['target_old'])))){
+                    foreach($data as $dt){
+                        if($dt->keywords){
+                            foreach($dt->keywords as $k){
+                                $this->unlinking($k->id);
+                                $this->ilgen_insert_keyword($k->keyword, $new, $k->limit, $k->tag, $k->id, $k->count);
+                                $this->linking($k->id);
+                            }
+                        }
+                    }
+                    $this->ilgen_messages(11, 'updated');
+                }else{
+                    $this->ilgen_messages(11, 'warning');
+                }
+            }else{
+                $this->ilgen_messages(11, 'warning');
+            }
+        }
 		
         public function settings(){
             if( update_option('ilgen_options', array(
@@ -444,8 +435,8 @@ if(!class_exists('Internal_Links_Generator_Settings')){
         
         public function ilgen_check_exists($value, $column = 'keyword'){
             
-            $row = $this->wpdb->get_row( sprintf(
-                "SELECT id FROM `".$this->wpdb->prefix."internalinks` WHERE %s = '%s' LIMIT 1", $column, $value
+            $row = $this->wpdb->get_row( $this->wpdb->prepare(
+                "SELECT `id` FROM `{$this->wpdb->prefix}internalinks` WHERE `{$column}` = '%s' LIMIT 1", $value
             ));
             
             if(is_null($row)) return false;
@@ -453,24 +444,25 @@ if(!class_exists('Internal_Links_Generator_Settings')){
         }
         
         public function ilgen_insert_keyword($keyword, $target = '', $limit = 1, $tag = '', $id = null, $count = null){
+            
             if(is_null($id)){
                 $keyword = $this->ilgen_prepare_keyword($keyword);
                 $check_id = $this->ilgen_check_exists($keyword);
                 
                 if(!$check_id && $keyword){
                     $query = $this->wpdb->prepare(
-                        "INSERT INTO `".$this->wpdb->prefix."internalinks` (`keyword`, `target`, `limit`) ".
+                        "INSERT INTO `{$this->wpdb->prefix}internalinks` (`keyword`, `target`, `limit`) " .
                         "VALUES ('%s', '%s', '%d')", $keyword, esc_url($target), absint($limit)
                     );
                 }
             }
             else{
-                $query = $this->wpdb->prepare("UPDATE `".$this->wpdb->prefix."internalinks` SET ".
-                    "`target` = '%s', `limit` = '%d', `tag` = '%s' WHERE id = '%d'", 
+                $query = $this->wpdb->prepare(
+                    "UPDATE `{$this->wpdb->prefix}internalinks` " .
+                    "SET `target` = '%s', `limit` = '%d', `tag` = '%s' WHERE `id` = '%d'", 
                     esc_url($target), absint($limit), $tag, absint($id)
                 );
             }
-            
             $result = $this->wpdb->query($query);
             return $result;
         }
@@ -479,45 +471,72 @@ if(!class_exists('Internal_Links_Generator_Settings')){
             $target = esc_url($target);
             $check_id = $this->ilgen_check_exists($target, 'target');
             if(!$check_id){
-                $query = $this->wpdb->prepare(
-                    "INSERT INTO `".$this->wpdb->prefix."internalinks` (`target`) ".
-                    "VALUES ('%s')", $target
-                );
+                return $this->wpdb->query( $this->wpdb->prepare(
+                    "INSERT INTO `{$this->wpdb->prefix}internalinks` (`target`) VALUES ('%s')", $target
+                ));
             }
-            
-            $result = $this->wpdb->query($query);
-            return $result;
         }
         
         public function ilgen_get_targets($targets = array()){
             
-			$data = array();
+            $data = array();
 			
             if(empty($targets)){
-				$targets = $this->wpdb->get_results(
-					"SELECT DISTINCT target FROM `".$this->wpdb->prefix."internalinks`"
-				);
-			}
+                $targets = $this->wpdb->get_results(
+                    "SELECT DISTINCT `target` FROM `{$this->wpdb->prefix}internalinks`"
+                );
+            }
             if(!empty($targets)){
                 foreach($targets as $t){
-                    $t->keywords = $this->wpdb->get_results(
-                        "SELECT * FROM `".$this->wpdb->prefix."internalinks` WHERE target = '$t->target' ORDER BY keyword ASC"
-                    );
+                    $t->keywords = $this->wpdb->get_results( $this->wpdb->prepare(
+                        "SELECT * FROM `{$this->wpdb->prefix}internalinks` " .
+                        "WHERE `target` = '%s' ORDER BY `keyword` ASC", $t->target
+                    ));
                     $data[] = $t;
                 }
             }
+            return $data;
+        }
+        
+        public function ilgen_get_ordered_targets($order = '', $filter = ''){
+
+            $data = array('int' => array(), 'ext' => array());
+            $parentUrl = get_bloginfo('url');
             
+            if($targets = $this->ilgen_get_targets()){
+                foreach($targets as $k => $t){
+                    if(!$t->target) continue;
+                    $type = ( stristr($t->target, $parentUrl) 
+                        || !preg_match('/^(http|https):\\/\\/.*/', $t->target, $match) 
+                    ) ? 'int' : 'ext';
+                    if($filter && !stristr($t->target, $filter)) continue;
+                    
+                    $data[$type][$k] = array('target' => $t->target, 'keywords' => array(), 'count' => 0);
+                    if($t->keywords){
+                        foreach($t->keywords as $kw){
+                            if(!$kw->linked) continue;
+                            $data[$type][$k]['keywords'][] = $kw;
+                            $data[$type][$k]['count'] += $kw->linked;
+                        }
+                    }
+                }
+            }
+            if($data && $order){
+                $order = explode('By', $order);
+                $data['int'] = $this->ilgen_order_by($data['int'], $order[0], (($order[1] == 'DESC') ? SORT_DESC : SORT_ASC));
+                $data['ext'] = $this->ilgen_order_by($data['ext'], $order[0], (($order[1] == 'DESC') ? SORT_DESC : SORT_ASC));
+            }
             return $data;
         }
         
         public function ilgen_get_page($template_data = array()){?>
             <div class="ilgen wrap">
-				<div class="ilgen-donate">
-					<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GM7YSW282RC4L" target="_blank">
-						<img src="<?= plugins_url( 'images/donate.png', plugin_basename( __FILE__ ) )?>">
-					</a>
-				</div>
-				<h2><?php _e('Internal Links Generator', 'ilgen')?></h2>
+                <div class="ilgen-donate">
+                    <a href="https://www.paypal.me/MaxKondrachuk" target="_blank">
+                        <img src="<?= plugins_url( 'images/donate.png', plugin_basename( __FILE__ ) )?>">
+                    </a>
+                </div>
+                <h2><?php _e('Internal Links Generator', 'ilgen')?></h2>
                 <h3 class="nav-tab-wrapper">
                 <?php foreach ( $this->settings_tabs as $tab_key => $tab_caption ):
                     $active = ($this->tab == $tab_key) ? 'nav-tab-active' : '';?>
@@ -526,13 +545,13 @@ if(!class_exists('Internal_Links_Generator_Settings')){
                 </h3>
                 <?php @include(sprintf("%s/templates/%s.php", dirname(__FILE__), $this->tab));?>
             </div>
-            
         <?php }
                
         public function ilgen_from_table($column, $id){
-            $row = $this->wpdb->get_row( 
-                sprintf("SELECT `%s` FROM `".$this->wpdb->prefix."internalinks` WHERE id = '%d' LIMIT 1", $column, $id), ARRAY_N
-            );
+            $row = $this->wpdb->get_row($this->wpdb->prepare(
+                "SELECT `{$column}` FROM `{$this->wpdb->prefix}internalinks` " .
+                "WHERE `id` = '%d' LIMIT 1", $id
+            ), ARRAY_N);
             
             if(is_null($row)) return false;
             else return $row[0];
@@ -542,15 +561,15 @@ if(!class_exists('Internal_Links_Generator_Settings')){
             $data = array();
             foreach(get_post_types(array('public' => true), 'names') as $post_type){
                 if(empty($this->options['allowed_pt']) || in_array($post_type, $this->options['allowed_pt'])){
-                    $posts = $this->wpdb->get_results( "SELECT ID, post_content FROM `".$this->wpdb->prefix."posts` WHERE post_type = '$post_type' AND post_status = 'publish'" );
-                    if(!empty($posts)){
+                    if($posts = $this->wpdb->get_results( $this->wpdb->prepare(
+                        "SELECT `ID`, `post_content` FROM `{$this->wpdb->prefix}posts` " .
+                        "WHERE `post_type` = '%s'", $post_type 
+                    ))){
                         foreach($posts as $p){
-                            @preg_match_all("/<a.*?href=[\"|'](.*?)[\"|'].*?>(.*?)<\/a>/iu", $p->post_content, $matches);
-                            if(!empty($matches[0])){
-                                for($i=0; $i<count($matches[0]); $i++){
-                                    if(!strpos($matches[0][$i], 'ilgen')){
-                                        $data[] = array( $p->ID, $matches[0][$i], $matches[1][$i], strip_tags($matches[2][$i]) );
-                                    }
+                            if(preg_match_all("/{$this->urlPattern}/siU", $p->post_content, $matches, PREG_SET_ORDER)){
+                                foreach($matches as $match){
+                                    if(strpos($match[0], 'class="ilgen"')) continue;
+                                    $data[] = array($p->ID, $match[0], $match[2], strip_tags($match[3]));
                                 }
                             }
                         }
@@ -579,11 +598,13 @@ if(!class_exists('Internal_Links_Generator_Settings')){
             
             foreach(get_post_types(array('public' => true), 'names') as $post_type){
                 if(empty($this->options['allowed_pt']) || in_array($post_type, $this->options['allowed_pt'])){
-                    $posts = $this->wpdb->get_results( "SELECT ID, post_content FROM `".$this->wpdb->prefix."posts` WHERE post_type = '$post_type' AND post_status = 'publish'" );
+                    $posts = $this->wpdb->get_results( $this->wpdb->prepare(
+                        "SELECT `ID`, `post_content` FROM `{$this->wpdb->prefix}posts` " .
+                        "WHERE `post_type` = '%s'", $post_type
+                    ));
                     if(!empty($posts)){
                         foreach($posts as $p){
-                            preg_match_all( sprintf($pattern, $before, $keyword, $after), $p->post_content, $matches );
-                            if($matches[0]){
+                            if(preg_match_all( sprintf($pattern, $before, $keyword, $after), $p->post_content, $matches)){
                                 $data[] = mb_convert_case(trim($matches[0][0]), MB_CASE_LOWER, "UTF-8" );
                             }
                             unset($matches);
@@ -645,6 +666,22 @@ if(!class_exists('Internal_Links_Generator_Settings')){
                 }
             }
             return true;
+        }
+        
+        public function ilgen_order_by(){
+            $args = func_get_args();
+            $data = array_shift($args);
+            foreach ($args as $n => $field) {
+                if (is_string($field)) {
+                    $tmp = array();
+                    foreach ($data as $key => $row)
+                        $tmp[$key] = $row[$field];
+                    $args[$n] = $tmp;
+                    }
+            }
+            $args[] = &$data;
+            call_user_func_array('array_multisort', $args);
+            return array_pop($args);
         }
     }
 }

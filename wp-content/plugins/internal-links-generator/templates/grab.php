@@ -1,7 +1,7 @@
 <div class="container grabb">
     <h4><?php _e('Grab & Import existing links', 'ilgen')?></h4>
     <p><i><?php _e('Each time you open this tab, plugin will scan your website for internal links you created manually across your website.', 'ilgen')?></i></p>
-    <?php if(!empty($template_data['grabbs'])):?>
+    <?php if($rows = $this->ilgen_grabb_links()):?>
         <form action="" method="post">
             <?php wp_nonce_field( 'internal_link_generator-grabb' );?>
             <input type="hidden" name="action" value="grabb">
@@ -14,7 +14,7 @@
                         <th><?php _e('Post', 'ilgen')?></th>
                     <tr></thead>
                     <tbody>
-                        <?php foreach($template_data['grabbs'] as $k => $row):?>
+                        <?php foreach($rows as $k => $row):?>
                             <tr>
                                 <td><input type="checkbox" name="ids[]" value="<?= $k?>"></td>
                                 <td><?= $row[3]?></td>

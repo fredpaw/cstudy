@@ -3,7 +3,7 @@
 Plugin Name: Internal Links Generator
 Plugin URI: https://makong.kiev.ua/plugins/internal-links-generator/
 Description: Simple way to automatically link a certain word or phrase in your post/page/custom content to a URL you specify.
-Version: 2.6
+Version: 2.72
 Author: Makong
 Author URI: http://makong.kiev.ua/
 License: GPL2
@@ -26,7 +26,7 @@ if(!class_exists('Internal_Links_Generator')){
             global $wpdb;
             $wpdb->query(
                 "CREATE TABLE IF NOT EXISTS `".$wpdb->prefix."internalinks` (
-                `id` BIGINT(20) UNSIGNED NULL AUTO_INCREMENT,
+                `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
                 `keyword` VARCHAR(100) NOT NULL,
                 `target` VARCHAR(255) NOT NULL,
                 `count` INT(11) DEFAULT '0',
@@ -35,11 +35,11 @@ if(!class_exists('Internal_Links_Generator')){
                 `posts` TEXT NOT NULL,
                 `tag` VARCHAR(20) NOT NULL,
                 PRIMARY KEY (`id`)) 
-				CHARACTER SET utf8 COLLATE utf8_general_ci"
+                CHARACTER SET utf8 COLLATE utf8_general_ci"
             );
-			if(!$wpdb->query("SHOW COLUMNS FROM {$wpdb->prefix}internalinks LIKE 'tag'")){
-				$wpdb->query("ALTER TABLE {$wpdb->prefix}internalinks ADD tag VARCHAR(20) CHARACTER SET utf8 NOT NULL");
-			}
+            if(!$wpdb->query("SHOW COLUMNS FROM {$wpdb->prefix}internalinks LIKE 'tag'")){
+                $wpdb->query("ALTER TABLE {$wpdb->prefix}internalinks ADD tag VARCHAR(20) CHARACTER SET utf8 NOT NULL");
+            }
             if(!get_option('ilgen_options')){
                 add_option('ilgen_options', array(
                     'numlinks'   => 0,

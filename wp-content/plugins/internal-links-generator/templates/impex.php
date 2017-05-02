@@ -34,7 +34,7 @@
         <p>
             <input type="submit" id="ilgen_export" name="ilgen_export" value="<?php _e('Export', 'ligen')?>" class="button button-primary">
             <?php if(isset($_POST['ilgen_export'])):?>
-                <a href="<?= plugins_url('../keywords.txt', __FILE__)?>" target="_blank"><?php _e('Download File', 'ilgen')?></a>
+                <a href="<?= plugins_url('../keywords.csv', __FILE__)?>" target="_blank"><?php _e('Download File', 'ilgen')?></a>
             <?php endif;?>
         </p>
     </form>
