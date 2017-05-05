@@ -15,6 +15,11 @@
 /**
  * General Layout for Cstudy
  */
+main {
+    padding:20px !important;
+    margin-top:20px !important;
+}
+
 #main .container_wrap .container {
 	padding:0px;
 }
@@ -193,6 +198,20 @@
 .avia-content-slider-inner a {
 	pointer-events: none;
 	cursor: default;
+}
+
+/**
+ * Shortcode csa-download style
+ */
+.csa-download-list{
+	margin:0px;
+}
+
+.csa-download-list li {
+	list-style-type: none;
+	border-bottom: dashed 1px #eeeeee;
+	margin-left:0px;
+	padding-top:10px;
 }
 
 /**
@@ -497,6 +516,117 @@
 #ad_ranking p a:first-child {
 	margin-right:30px;
 }
+
+/**
+ * Archive page style
+ */
+.pagination a, .pagination .current {
+    border-radius: 0 !important;
+    width:20px !important;
+    height:30px !important;
+    line-height:30px !important;
+    margin:0 10px;
+}
+
+article.single-big .post_delimiter {
+    margin-bottom:0px;
+    border-top: dashed 1px #666666;
+}
+
+article.single-big .entry-content-wrapper h2 {
+	font-size:18px;
+}
+
+article.single-big .entry-content-wrapper h2 a {
+    color:#333333 !important;
+}
+
+article.single-big .big-preview {
+    display:none;
+}
+
+article.single-big .post-meta-infos {
+	font-size:14px;
+}
+
+article.single-big .post-meta-infos .text-sep, article.single-big .post-meta-infos .blog-categories, article.single-big .post-meta-infos .comment-container {
+    display:none;
+}
+
+article.single-big .post-meta-infos time {
+    margin-right:30px;
+}
+
+article.single-big .post-meta-infos .entry-author-link {
+    pointer-events: none;
+    cursor: auto !important;
+}
+
+/**
+ * Related post style (sidebar)
+ */
+
+.yuzo_widget_wrap {
+	padding:20px !important;
+}
+
+.yuzo_widget_wrap h3 {
+	margin:0px;
+}
+
+.yuzo_widget_wrap .yuzo-list {
+	border-bottom: dashed 1px #eeeeee;
+}
+
+.yuzo_widget_wrap .yuzo_related_post_widget .yuzo-list:last-child {
+	border-bottom: none;
+}
+
+.yuzo_widget_wrap .yuzo-list:before {
+	background: url('images/circle-3.png') center center no-repeat;
+}
+
+.yuzo_widget_wrap .yuzo-list a {
+	font-weight: normal !important;
+}
+
+/**
+ * Baidu Share style
+ */
+.bdsharebuttonbox a {
+	display:inline-block;
+	padding: 15px 0px !important;
+	border: solid 1px #f56467;
+	border-radius:10px;
+	width: 170px;
+	text-decoration:none;
+	text-align:center;
+	background:none !important;
+	height:100% !important;
+	font-size:16px !important;
+	text-indent: 30px;
+}
+
+.bdsharebuttonbox a:hover {
+	color:#f36310 !important;
+}
+
+.bdsharebuttonbox .bds_tsina {
+	background: url('images/sinawebo.png') 40px center no-repeat !important;
+}
+
+.bdsharebuttonbox .bds_weixin {
+	background: url('images/wx.png') 30px center no-repeat !important;
+}
+
+.bdsharebuttonbox .bds_qzone {
+	background: url('images/qqzone.png') 30px center no-repeat !important;
+}
+
+.bd_weixin_popup {
+	height:300px !important;
+}
+
 
 /**
  *  Homepage Style

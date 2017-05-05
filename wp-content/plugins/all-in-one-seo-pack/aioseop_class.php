@@ -3070,7 +3070,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 		$post_objs  = get_post_types( '', 'objects' );
 		$pt         = array_keys( $post_objs );
-		$rempost    = array( 'revision', 'nav_menu_item' );
+		$rempost    = array( 'revision', 'nav_menu_item', 'custom_css', 'customize_changeset' ); // Don't show these built-in types as options for CPT SEO.
 		$pt         = array_diff( $pt, $rempost );
 		$post_types = array();
 

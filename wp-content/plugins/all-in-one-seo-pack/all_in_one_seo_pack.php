@@ -3,7 +3,7 @@
 Plugin Name: All In One SEO Pack
 Plugin URI: https://semperplugins.com/all-in-one-seo-pack-pro-version/
 Description: Out-of-the-box SEO for your WordPress blog. Features like XML Sitemaps, SEO for custom post types, SEO for blogs or business sites, SEO for ecommerce sites, and much more. More than 30 million downloads since 2007.
-Version: 2.3.12.2.1
+Version: 2.3.12.5
 Author: Michael Torbert
 Author URI: https://semperplugins.com/all-in-one-seo-pack-pro-version/
 Text Domain: all-in-one-seo-pack
@@ -31,14 +31,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * The original WordPress SEO plugin.
  *
  * @package All-in-One-SEO-Pack
- * @version 2.3.12.2.1
+ * @version 2.3.12.5
  */
 
 if ( ! defined( 'AIOSEOPPRO' ) ) {
 	define( 'AIOSEOPPRO', false );
 }
 if ( ! defined( 'AIOSEOP_VERSION' ) ) {
-	define( 'AIOSEOP_VERSION', '2.3.12.2.1' );
+	define( 'AIOSEOP_VERSION', '2.3.12.5' );
 }
 global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
@@ -369,6 +369,12 @@ if ( ! function_exists( 'aiosp_action_links' ) ) {
 }
 
 if ( ! function_exists( 'aioseop_init_class' ) ) {
+	/**
+	 * Inits All-in-One-Seo plugin class.
+	 *
+	 * @since ?? // When was this added?
+	 * @since 2.3.12.3 Loads third party compatibility class.
+	 */
 	function aioseop_init_class() {
 		global $aiosp;
 		load_plugin_textdomain( 'all-in-one-seo-pack', false, dirname( plugin_basename( __FILE__ ) ) . '/i18n/' );
@@ -382,6 +388,7 @@ if ( ! function_exists( 'aioseop_init_class' ) ) {
 		require_once( AIOSEOP_PLUGIN_DIR . 'admin/meta_import.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/translations.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'public/opengraph.php' );
+		require_once( AIOSEOP_PLUGIN_DIR . 'inc/compatability/abstract/aiosep_compatible.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'inc/compatability/compat-init.php');
 		require_once( AIOSEOP_PLUGIN_DIR . 'public/front.php' );
 		require_once( AIOSEOP_PLUGIN_DIR . 'public/google-analytics.php' );

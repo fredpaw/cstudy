@@ -1341,7 +1341,7 @@ END;
 				'filter_metabox_options',
 			), 10, 3 );
 			$post_types                                        = $this->get_post_type_titles();
-			$rempost                                           = array( 'revision' => 1, 'nav_menu_item' => 1 );
+			$rempost = array( 'revision' => 1, 'nav_menu_item' => 1, 'custom_css' => 1, 'customize_changeset' => 1 );
 			$post_types                                        = array_diff_key( $post_types, $rempost );
 			$this->default_options['types']['initial_options'] = $post_types;
 			foreach ( $post_types as $slug => $name ) {
