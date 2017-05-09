@@ -7,3 +7,4 @@ body{font-family:' helvetica neue', 'HelveticaNeue', 'Helvetica Neue', Helvetica
 			  .responsive.html_boxed.html_header_transparency #header{ width: 1200px; max-width:90%; }
 			  .responsive .container{ max-width: 1200px; }
 			
+#top .all_colors .image-overlay{visibility: hidden;}

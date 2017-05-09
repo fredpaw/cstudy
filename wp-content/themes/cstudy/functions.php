@@ -123,3 +123,13 @@ function csdownload_func($atts) {
  * Add all the shortcode
  */
 add_shortcode( 'csdownload', 'csdownload_func' );
+
+
+/**
+ * Register all the scripts
+ */
+function kefu_enqueue_script() {
+    wp_enqueue_script( 'kefu-js', get_bloginfo('stylesheet_directory').'/kefu/js/kefu.js', 'jquery', '1.0.0', true );
+}
+
+add_action( 'wp_enqueue_scripts', 'kefu_enqueue_script' );

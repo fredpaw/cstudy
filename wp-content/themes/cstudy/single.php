@@ -45,7 +45,10 @@
 
                         //wordpress function that loads the comments template "comments.php"
                         comments_template();
-
+                    ?>
+                    <div class="bdsharebuttonbox"><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">微博</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信分享</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a></div>
+                    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+                    <?php
                         $prev_post = get_adjacent_post(false, '', true);
                         if(!empty($prev_post)) {
                         echo '<p><a href="' . get_permalink($prev_post->ID) . '" title="' . $prev_post->post_title . '">上一篇：' . $prev_post->post_title . '</a></p>'; }

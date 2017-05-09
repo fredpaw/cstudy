@@ -189,7 +189,70 @@
 
 ?>
 <a href='#top' title='<?php _e('Scroll to top','avia_framework'); ?>' id='scroll-top-link' <?php echo av_icon_string( 'scrolltop' ); ?>><span class="avia_hidden_link_text"><?php _e('Scroll to top','avia_framework'); ?></span></a>
+        <div id="rightArrow"><a href="javascript:;" title="客服"></a></div>
 
+        <div id="floatDivBoxs">
+
+            <div class="floatDtt">在线客服</div>
+
+            <div class="floatShadow">
+
+                <ul class="floatDqq">
+
+                    <li style="padding-left:0px;  color:#FB070B"><img src="<?php echo get_stylesheet_directory_uri(); ?>/kefu/images/au.png" align="absmiddle" alt="留学益网客服" >益网北京办公室</li>
+
+                    <li value="" style="padding-left:0px;">
+
+                        <a target=blank href=tencent://message/?uin=1642129318&Site=留学益网&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:1642129318:9 alt="点击这里给我发消息" align="absmiddle" > Ruth雷老师</a></li>
+
+                    <li style="padding-left:0px;">
+
+                        <a target=blank href=tencent://message/?uin=641709951&Site=留学益网&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:641709951:9 alt="点击这里给我发消息" align="absmiddle" > Derek王老师</a></li>
+                    <li style="padding-left:0px;">
+
+                        <a target=blank href=tencent://message/?uin=297042895&Site=留学益网&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:297042895:9 alt="点击这里给我发消息" align="absmiddle" > Mia王老师</a></li>
+                    <li style="padding-left:0px;">
+
+                        <a target=blank href=tencent://message/?uin=973248016&Site=留学益网&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:973248016:9 alt="点击这里给我发消息" align="absmiddle" > Susan孙老师</a></li>
+
+                    <li style="padding-left:0px;">
+
+                        <a target=blank href=tencent://message/?uin=798187909&Site=留学益网&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:798187909:9 alt="点击这里给我发消息" align="absmiddle" > Brenda申老师</a></li>
+                    <li style="padding-left:0px;">
+
+                        <a target=blank href=tencent://message/?uin=912545722&Site=留学益网&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:912545722:9 alt="点击这里给我发消息" align="absmiddle" > Gloria赵老师</a></li>
+
+                    <li style="padding-left:0px;  color:#FB070B"><img src="<?php echo get_stylesheet_directory_uri(); ?>/kefu/images/au.png" align="absmiddle" alt="留学益网客服" >益网澳洲办公室</li>
+
+                    <li style="padding-left:0px;">
+
+                        <a target=blank href=tencent://message/?uin=1102857630&Site=留学益网&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:1102857630:9 alt="点击这里给我发消息" align="absmiddle" > 悉尼 严老师</a></li>
+
+                    <li style="padding-left:0px;">
+
+                        <a target=blank href=tencent://message/?uin=2409737267&Site=留学益网&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:2409737267:9 alt="点击这里给我发消息" align="absmiddle" > 墨尔本 刘老师</a></li>
+
+
+
+                </ul>
+
+                <div class="floatDtxt">免费咨询电话
+
+                    <p style="font-weight:200; color:#FB070B">4009971573</p>
+
+                    <a href="http://www.cstudyabroad.com/Consultant/index.html" target="_blank">顾问团队介绍</a></div>
+
+
+
+                <div style="text-align:center;padding:10PX 0 5px 0;background:#EBEBEB;"><img src="<?php echo get_stylesheet_directory_uri(); ?>/kefu/images/wap_ico.jpg" alt="留学益网微信公众号"><br>微信公众账号</div>
+
+            </div>
+
+            <div class="floatDbg"></div>
+
+        </div>
+
+        <div style="display:none"> <script type='text/javascript' src='http://chat.53kf.com/kf.php?arg=cstudyabroad&style=1'></script> </div>
 <div id="fb-root"></div>
 </body>
 </html>
