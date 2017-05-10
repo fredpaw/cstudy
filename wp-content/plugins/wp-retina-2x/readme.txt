@@ -3,7 +3,7 @@ Contributors: TigrouMeow
 Tags: retina, images, image, responsive, lazysizes, lazy, attachment, media, files, iphone, ipad, high-dpi
 Requires at least: 3.5
 Tested up to: 4.7
-Stable tag: 5.0.4
+Stable tag: 5.0.5
 
 Make your website look beautiful and crisp on modern displays by creating and displaying retina images. WP 4.4+ is also supported and enhanced.
 
@@ -33,7 +33,7 @@ More information and tutorial available one http://meowapps.com/wp-retina-2x/.
 
 == Changelog ==
 
-= 5.0.4 =
+= 5.0.5 =
 * Fix: There was a issue with the .htaccess rewriting (Class ‘Meow_Admin’ not found).
 * Update: Core was totally re-organized and cleaned. Ready for nice updates.
 * Update: LazyLoading from version 2.0 to 3.0.

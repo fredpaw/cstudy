@@ -32,7 +32,7 @@ if ( !class_exists( 'MeowApps_Admin' ) ) {
 			// TODO: In the future, this should be removed ideally
 			if ( is_admin() ) {
 				$license = get_option( $this->prefix . '_license', "" );
-				if ( ( !empty( $license ) ) && !file_exists( plugin_dir_path( __FILE__ ) . '/meowapps/admin.php' ) ) {
+				if ( ( !empty( $license ) ) && !file_exists( plugin_dir_path( $this->mainfile ) . 'common/meowapps/admin.php' ) ) {
 					add_action( 'admin_notices', array( $this, 'admin_notices_licensed_free' ) );
 				}
 			}

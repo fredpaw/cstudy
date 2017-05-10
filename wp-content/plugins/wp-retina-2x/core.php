@@ -6,7 +6,6 @@ class Meow_WR2X_Core {
 
 	public function __construct( $admin ) {
 		$this->admin = $admin;
-		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
     add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
     add_filter( 'wp_generate_attachment_metadata', array( $this, 'wp_generate_attachment_metadata' ) );
@@ -1167,53 +1166,6 @@ class Meow_WR2X_Core {
   	if ($method == "retina.js")
   		wp_enqueue_script( 'retinajs', plugins_url( '/js/retina.min.js', __FILE__ ), array(), $wr2x_retinajs, true );
   }
-
-	/*******************************************************************************
-	 * OLD PRO / TODO: THIS FUNCTION SHOULD BE REMOVED IN THE FUTURE
-	 ******************************************************************************/
-
-	function admin_notices() {
-		if ( isset( $_POST['wr2x_reset_sub'] ) ) {
-			delete_transient( 'wr2x_validated' );
-			delete_option( 'wr2x_pro_serial' );
-			delete_option( 'wr2x_pro_status' );
-		}
-		$validated = get_transient( 'wr2x_validated' );
-		$subscr_id = get_option( 'wr2x_pro_serial', "" );
-		if ( empty( $subscr_id ) || empty( $validated ) )
-			return;
-		$forever = strpos( $subscr_id, 'F-' ) !== false;
-		$yearly = strpos( $subscr_id, 'I-' ) !== false;
-		?>
-		<div class="error">
-		<p>
-			<b>IMPORTANT MESSAGE ABOUT WP RETINA 2X.</b>
-			In order to comply with WordPress.org rules, big changes in the code and how the plugin was sold had to be made. The plugin now requires to be bought through <a target='_blank' href="https://store.meowapps.com">https://store.meowapps.com</a>. You will be able to download the Pro version there, manage your keys and websites. It is a much more robust system. Since only the free version can be hosted by WordPress.org, this is the one which is active now. I am trying to ease this upgrade, depending on your current license.<br /><br />
-			Your license is <b><?php echo $subscr_id ?></b>.
-			<?php
-				if ( $forever ) {
-					echo "You have a Forever license. If you got this license less than 160 days ago, reply to the welcome e-mail (after buying a new license) with your previous license key ($subscr_id) and the e-mail you are using in Paypal. I will refund the previous payment. If it is more than 160 days, we are out of luck. So here is a discount of <b>90% off</b>, for any license you like: <b>UPGRADE90WPRETINA</b>. If you use the discount, the refund will be of course not possible.";
-				}
-				else if ( $yearly ) {
-					echo "You have a Yearly license. If you got this license less than 160 days ago, reply to the welcome e-mail (after buying a new license) with your previous license key ($subscr_id) and the e-mail you are using in Paypal. I will refund the previous payment. If it is more than 160 days ago, we are out of luck. So here is a discount of <b>50% off</b>, for any license you like: <b>UPGRADEWPRETINA50</b>. Also, don't forget to cancel your current subscription in Paypal (<a target='_blank' href='https://www.paypal.com/us/selfhelp/article/How-do-I-cancel-an-automatic-payment-I-have-with-a-merchant-FAQ2058'>click here</a> if you don't know how to do this).";
-				}
-				else {
-					echo "Your license is special, so please contact me.";
-				}
-			?>
-			If you absolutely need to use the plugin as it was before, with your current license key, please download it again here: <a target='_blank' href="https://meowapps.com/previous-versions/">Previous Versions</a>. I will keep the old system up for a while, but no updates will be possible.
-			<br /><br />Also note that I also have now an <a target='_blank' href='https://store.meowapps.com/affiliate-area/'>Affiliate Program</a> in that store, don't hesitate to register for it. Thanks a lot for your comprehension and sorry for the troubles. Not easy for anyone but it had to be done and I think you will really enjoy the new store more than the previous clunky system. I wrote a little post about this change here, so don't hesitate to add a comment if you have a question: <a href="https://meowapps.com/migration-store/">Migration to the Meow Apps Store</a>.
-		</p>
-			<p>
-			<form method="post" action="">
-				<input type="hidden" name="wr2x_reset_sub" value="true">
-				<input type="submit" name="submit" id="submit" class="button" value="Got it. Understood!">
-				<br /><small>Make sure you got a new license and all before clicking this button. It will also clean your install from the old key data.</small>
-			</form>
-		</p>
-		</div>
-		<?php
-	}
 
 }
 
